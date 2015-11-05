@@ -1,0 +1,33 @@
+//import mongoose and bcrypt
+var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-node.js');
+
+var Schema = mongoose.Schema;  //schema object
+
+var UserSchema = new Schema({
+	username: String,
+	password: String,
+	email: String,
+	displayName: String,
+	salt: String,
+	provider: String,
+	providerID: String,
+	providerData: String,
+	created: Number,
+	updated: Number
+},
+{
+	collection: 'userInfo'
+});
+
+//Generating a Hash
+UserSchema.methods.generateHash = function(password){
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+}
+
+//checking if password is valid
+UserSchema.methods.validPassword = function(password){
+	return bcrypt.compareSync(password, this.password);
+}
+
+module.exports = mongoose.model('User', UserSchema);
