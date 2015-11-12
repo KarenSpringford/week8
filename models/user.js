@@ -1,6 +1,6 @@
 //import mongoose and bcrypt
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-node.js');
+var bcrypt = require('bcrypt-nodejs');
 
 var Schema = mongoose.Schema;  //schema object
 
